@@ -136,12 +136,14 @@ public class Cliente {
 			    		}
 			    		catch(Exception err)
 			    		{
-							System.err.println("Opcao invalida");
+							System.err.println("Opcao invalida!");
 							continue;
 						}
+						System.out.println("Aguardando tentativa do oponente...");
 					 	servidor.receba(new PedidoDeTentativa(tentativa));
 					 	Resultado result = (Resultado) servidor.envie();
                 	 	System.out.println(result.getResultado());
+
 					}
 				}
 

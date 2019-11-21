@@ -98,8 +98,8 @@ public class SupervisoraDeConexao extends Thread
                         {
                         	String resultado1 = gerarResultado(1);
                         	String resultado2 = gerarResultado(2);
-                        	this.jogadores.get(1).receba(new Resultado(resultado1 + " assim como " + resultado2));
-                        	this.jogadores.get(0).receba(new Resultado(resultado2 + " assim como " + resultado1));
+                        	this.jogadores.get(1).receba(new Resultado(resultado1 + "\n" + resultado2));
+                        	this.jogadores.get(0).receba(new Resultado(resultado2 + "\n" + resultado1));
              			   	qtsChutaram = 0;
 						}
 						this.jogadores.get(quemJoga).receba(new PedidoDeVez());
@@ -111,7 +111,7 @@ public class SupervisoraDeConexao extends Thread
                             synchronized (this.jogadores)
                             {
                                 this.jogadores.remove(this.usuario);
-                                this.usuario.receba(new Resultado("Voce foi desconectado do servidor!!"));
+                                this.usuario.receba(new Resultado("Voce foi desconectado do servidor!!\n\n"));
                                 this.qtdJogadores--;
                             }
                             this.usuario.byebye();
@@ -143,6 +143,13 @@ public class SupervisoraDeConexao extends Thread
         int jogadaJogador1 = this.jogadores.get(0).getTentativa();
         int jogadaJogador2 = this.jogadores.get(1).getTentativa();
 
+        if(jogadaJogador1 == jogadaJogador2 && jogadaJogador1 == numeroSorteado)
+       	{
+			result = "O numero sorteado era " + numeroSorteado + ", entao, como dois jogadores acertaram, houve empate nessa rodada!\n\n";
+			sortearNumero();
+			return result;
+		}
+
 		if(comQual == 1)
 		{
         	switch (Jogador.conferir(jogadaJogador1, numeroSorteado))
@@ -155,7 +162,7 @@ public class SupervisoraDeConexao extends Thread
           		 	result = this.jogadores.get(0).getNickname() + " chutou o numero " + jogadaJogador1 + ", mas o numero sorteado e menor que isso.\n\n";
 					break;
          	case -1:
-					result = this.jogadores.get(0).getNickname() + " chutou o numero " + jogadaJogador1 + ", mas o numero sorteado e menor que isso.\n\n";
+					result = this.jogadores.get(0).getNickname() + " chutou o numero " + jogadaJogador1 + ", mas o numero sorteado e maior que isso.\n\n";
  					break;
         }
 	}
