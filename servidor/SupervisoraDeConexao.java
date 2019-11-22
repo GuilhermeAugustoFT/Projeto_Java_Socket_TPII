@@ -107,15 +107,12 @@ public class SupervisoraDeConexao extends Thread
 
                     else if (comunicado instanceof PedidoParaSair)
                     {
+								//Aqui, os dois jogadores devem receber mensagem de que foram desconectados, e sairem do servidor
+								//PS: Arreguei pra isso e fui fazer javadocs;
+                                this.qtdJogadores = 0;
+                    }
 
-                            synchronized (this.jogadores)
-                            {
-                                this.jogadores.remove(this.usuario);
-                                this.usuario.receba(new Resultado("Voce foi desconectado do servidor!!\n\n"));
-                                this.qtdJogadores--;
-                            }
-                            this.usuario.byebye();
-                        }
+
 
                 }
 
