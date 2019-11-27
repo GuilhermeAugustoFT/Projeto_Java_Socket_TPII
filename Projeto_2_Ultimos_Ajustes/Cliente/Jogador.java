@@ -148,4 +148,108 @@ public class Jogador
             throw new Exception ("Erro de desconexao");
         }
     }
+
+
+	/**
+	* Calcula o código de espalhamento (ou código de hash) de um Jogador
+	* Calcula e resulta o código de espalhamento (ou código de hash, ou ainda o
+	* hashcode) do resultado representado pela instância à qual o método for aplicado.
+	* @return o código de espalhamento do Jogador chamante do método.
+	*/
+
+	  public int hashCode()
+	{
+		int ret = 2112;
+		ret = ret * 17 + new Integer(this.tentativa).hashCode();
+		ret = ret * 17 + new String(this.nickname).hashCode();
+		if(ret < 0)
+			ret = - ret;
+		return ret;
+	}
+
+	/**
+	* Verifica a igualdade entre dois Jogador.
+	* Verifica se o Object fornecido como parâmetro representa um
+	* Jogador igual àquele representado pela instância à qual este
+	* método for aplicado, resultando true em caso afirmativo,
+	* ou false, caso contrário.
+	* @param  obj o objeto a ser comparado com a instância à qual esse método
+	* for aplicado.
+	* @return true, caso o Object fornecido ao método e a instância chamante do
+	* método representarem Jogador iguais, ou false, caso contrário.
+	*/
+
+	public boolean equals(Object obj)
+	{
+		if(this == obj)
+			return true;
+
+		if(obj == null)
+			return false;
+		if(this.getClass() != obj.getClass())
+			return false;
+
+		Jogador j = (Jogador)obj;
+		if(this.tentativa != j.tentativa)
+			return false;
+		if(!this.nickname.equals(j.nickname))
+			return false;
+
+		return true;
+	}
+
+	/**
+	* Gera uma representação textual de todo conteúdo do Jogador.
+	* Produz e resulta um String com todos os dados contidos
+	* na Jogador.
+	* @return um String contendo todo o conteúdo do Jogador.
+	*/
+
+	public String toString()
+	{
+		String ret = "";
+		ret += this.tentativa + "";
+		ret += this.nickname;
+		return ret;
+	}
+
+	/**
+	* Clona um jogador.
+	* Produz e resulta uma cópia do jogador representado pela instância
+	* à qual o método for aplicado.
+	* @return a cópia do jogador representado pela instância à qual
+	* o método for aplicado.
+	*/
+
+	public Object clone()
+	{
+		Jogador ret = null;
+		try
+		{
+			ret = new Jogador(this);
+		}
+		catch(Exception e)
+		{}
+		return ret;
+	}
+
+	/**
+	* Constroi uma cópia da instância da classe Jogador dada.
+	* Para tanto, deve ser fornecida uma instancia da classe Jogador para ser
+	* utilizada como modelo para a construção da nova instância criada.
+	* @param modelo a instância da classe Jogador a ser usada como modelo.
+	* @throws Exception se o modelo for null.
+	*/
+
+	public Jogador(Jogador modelo) throws Exception
+	{
+		if(modelo == null)
+			throw new Exception ("Parâmetro nulo");
+
+		this.conexao = modelo.conexao;
+		this.receptor = modelo.receptor;
+		this.transmissor = modelo.transmissor;
+		this.tentativa = modelo.tentativa;
+		this.nickname = modelo.nickname;
+	}
 }
